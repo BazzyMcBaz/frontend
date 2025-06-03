@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Weekly Task Planner</title>
+  <link rel="stylesheet" href="practice.css">
+</head>
+<body>
+  <header> <div id="header">    <h1>π - π ka hisab</h1>
+    <p class="tagline">Your week, sorted — with precision.</p></div></header>
+  
+<div class="week-wrapper">
+ <div class="week-grid" id="weekGrid"></div>
+</div>
+  <!-- Add Task Form Modal -->
+  <form class="add-task-form" id="addTaskForm">
+    <h3>Add Task</h3>
+    <label>
+      Day:
+      <select id="taskDay" required>
+        <option value="0">Monday</option>
+        <option value="1">Tuesday</option>
+        <option value="2">Wednesday</option>
+        <option value="3">Thursday</option>
+        <option value="4">Friday</option>
+        <option value="5">Saturday</option>
+        <option value="6">Sunday</option>
+      </select>
+    </label>
+    <label>
+      Task:
+      <input type="text" id="taskName" required placeholder="Enter your task">
+    </label>
+    <label>
+      Time:
+      <input type="time" id="taskTime" required>
+    </label>
+    <div>
+      <button type="submit">Add</button>
+      <button type="button" class="close-form" id="closeFormBtn">Cancel</button>
+    </div>
+  </form>
+
+  <button class="add-btn" id="showFormBtn">+</button>
+  <script src="practics.js"></script>
+</body>
+</html>

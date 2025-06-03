@@ -1,0 +1,279 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #252525;
+  color: #ffffff;
+}
+
+#header {
+       font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1rem;
+  text-align: center;
+  background: url('https://images.pexels.com/photos/32164974/pexels-photo-32164974/free-photo-of-cherry-blossoms-in-springtime-seoul.jpeg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+    }
+@font-face {
+  font-family: custom;
+  src: url(./Milchella-Regular.ttf);
+}
+    #header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* dark overlay */
+  z-index: -1;
+}
+#header h1 {
+  font-family: custom;
+  font-size: 2.5rem;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+}
+
+#header .tagline {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #dddddd;
+}
+
+
+
+
+
+/* For screens smaller than 768px (mobile) */
+@media (max-width: 768px) {
+ 
+   
+.week-grid {
+  display: grid;
+        grid-template-rows: repeat(auto-fit, minmax(160px, 1fr));
+
+  /* grid-template-rows: repeat(auto-fit, minmax(150px, 1fr)); */ /* Remove this line */
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
+.day-card {
+  background: rgb(82, 82, 82);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.week-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+}
+
+/* For tablets (between 768px and 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+   
+.week-grid {
+  display: grid;
+        grid-template-rows: repeat(auto-fit, minmax(120px, 1fr));
+
+  /* grid-template-rows: repeat(auto-fit, minmax(150px, 1fr)); */ /* Remove this line */
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
+.day-card {
+  background: rgb(82, 82, 82);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.week-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+} 
+/* For larger screens (laptops/desktops) */
+@media (min-width: 1025px) {
+ 
+.week-grid {
+  display: grid;
+        grid-template-rows: repeat(auto-fit, minmax(120px, 1fr));
+
+  /* grid-template-rows: repeat(auto-fit, minmax(150px, 1fr)); */ /* Remove this line */
+  gap: 1rem;
+  padding: 1rem;
+}
+
+
+.day-card {
+  background: rgb(82, 82, 82);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.week-wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+}
+
+.task {
+  color: #1f1f1f;
+  margin: 0.3rem 0;
+  padding: 0.6rem 0.4rem 0.6rem 1rem;
+  background: #d7e6ff;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.task:hover {
+  background-color: #bfd4ef;
+}
+
+.empty-msg {
+  font-style: normal;
+  color: #aaa;
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-task-form {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: #252525;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 100;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-task-form input,
+.add-task-form select {
+  /* height: 2.34rem;*/ 
+    min-width: 11rem;
+  max-width: 15rem;
+
+   width: 30vw; 
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.add-task-form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+ @media (min-width: 481) and  (max-width: 768px) {
+  .add-task-form {
+    
+    padding: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .add-task-form input,
+  .add-task-form select {
+    font-size: 0.95rem;
+    padding: 0.4rem;
+  }
+
+  .add-task-form button {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+  }
+} 
+
+@media (max-width: 480px) {
+  .add-task-form {
+    
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .add-task-form input,
+  .add-task-form select {
+    font-size: 0.9rem;
+    padding: 0.35rem;
+  }
+
+  .add-task-form button {
+    font-size: 0.9rem;
+    padding: 0.35rem 0.75rem;
+  }
+}  
+/* .add-task-form {
+    max-width: 500px;
+    width: 100%;
+  }  */
+.close-form {
+  background: #b71c1c;
+  margin-left: 1rem;
+}

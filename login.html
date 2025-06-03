@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glassmorphism Login</title>
+  <link rel="stylesheet" href="login.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="background"></div>
+    <div class="login-box">
+      <div class="logo"><h2 id="login-title">Login</h2>
+    <p class="tagline">Enter your cridentials to access the site.</p></div>
+      <form id="loginForm">
+        <input type="text" placeholder="Username" name="username" required />
+        <input type="password" placeholder="Password" name="password" required />
+
+        <button type="submit" class="login-btn">Login</button>
+      
+<!-- 
+        <p class="signup-text">
+          Don't have an account? <a href="#">Sign Up</a>
+        </p> -->
+   <div class="remember">
+  <input type="checkbox" name="remember" id="remember" />
+  <label for="remember">Remember Me</label>
+</div>
+        <div class="options">
+       
+          <a href="#">Forgot login?</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== Inline JS ========== -->
+  <script>
+document.getElementById('loginForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const username = this.username.value;
+  const password = this.password.value;
+
+  try {
+    const response = await fetch('http://localhost:8000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      const loginBox = document.querySelector('.login-box');
+      loginBox.classList.add('animate__animated', 'animate__fadeOut');
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 800);
+    } else {
+      alert(data.message);
+    }
+  } catch (err) {
+    console.error('Error:', err);
+    alert('Server error occurred.');
+  }
+});
+</script>
+
+</body>
+</html>

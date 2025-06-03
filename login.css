@@ -1,0 +1,188 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Container setup */
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Background image */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: url('https://wallpaperbat.com/img/749122-dark-theme-wallpaper.jpg') no-repeat center center / cover;
+
+  z-index: -1;
+  filter: brightness(0.7);
+}
+@font-face {
+  font-family: poppinsthin;
+  src: url(./Poppins-ExtraLightItalic.ttf);
+}
+
+/* Login Box */
+.login-box {
+  margin-left: auto;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  padding: 3rem 2rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Logo */
+.logo { 
+ 
+  text-align: center;
+  margin-bottom: 2rem;
+} 
+@font-face {
+  font-family: roboto-black;
+  src: url(./Roboto-Black.ttf);
+}
+#login-title{
+  font-family: roboto-black;
+ font-size: 2.5rem;
+ font-weight: normal;
+}
+.tagline {
+  margin-top: 0.5rem;
+  font-family: poppinsthin;
+  /* font-style: ; */
+  font-size: 0.8rem;
+  color: #b0b0b0;
+  opacity: 90% ;
+}
+/* Form Inputs */
+form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.2rem 0;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Placeholder color */
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.remember {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-top: 0.5rem;
+
+}
+
+.remember input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: white; /* Optional: better visibility */
+}
+
+/* Options (remember/forgot) */
+/* .options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1rem;
+} */
+
+.options a {
+  color: #ccc;
+  text-decoration: none;
+}
+.options a:hover {
+  text-decoration: underline;
+}
+
+/* Login Button */
+.login-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background-color: #ffffff;
+  color: #000;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-btn:hover {
+  background-color: #ddd;
+}
+
+/* Google Login Button */
+.google-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  transition: 0.2s;
+}
+
+.google-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Sign-up text */
+.signup-text {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.signup-text a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+.options{
+  font-size: 0.9rem;
+  margin: 0.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
