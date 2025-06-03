@@ -65,7 +65,7 @@ function renderWeek() {
       // Remove from DB
       if (task.id) {
         try {
-          const res = await fetch(`https://task-backend-g375.onrender.com/${task.id}`, {
+          const res = await fetch(`https://task-backend-g375.onrender.com/task/${task.id}`, {
             method: 'DELETE'
           });
           const data = await res.json();
@@ -113,7 +113,7 @@ addTaskForm.onsubmit = async function (e) {
 
   // Send to backend
   try {
-    const res = await fetch('https://task-backend-g375.onrender.com', {
+    const res = await fetch('	https://task-backend-g375.onrender.com/tasks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ day: dayIdx, ...taskObj })
@@ -134,7 +134,7 @@ addTaskForm.onsubmit = async function (e) {
 
 async function fetchTasksFromDB() {
   try {
-    const res = await fetch('https://task-backend-g375.onrender.com');
+    const res = await fetch('	https://task-backend-g375.onrender.com/task');
     const data = await res.json();
     if (data.success) {
       for (let i = 0; i < 7; i++) tasks[i] = [];
@@ -196,7 +196,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
     });
 
     // Send subscription to backend
-    await fetch('https://task-backend-g375.onrender.com/subscribe', {
+    await fetch('	https://task-backend-g375.onrender.com/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(subscription)
