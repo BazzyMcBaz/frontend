@@ -1,8 +1,6 @@
-
 Notification.requestPermission().then(permission => {
   if (permission !== 'granted') alert('Enable notifications for reminders to work!');
 });
-
 
 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const weekGrid = document.getElementById('weekGrid');
@@ -13,7 +11,6 @@ const taskDay = document.getElementById('taskDay');
 const taskName = document.getElementById('taskName');
 const taskTime = document.getElementById('taskTime');
 
-// Store tasks as an array of arrays
 const tasks = [[], [], [], [], [], [], []];
 
 function renderWeek() {
@@ -38,31 +35,12 @@ function renderWeek() {
     weekGrid.appendChild(card);
   });
 
-  // Add click event to task for downloads (if any)
-  document.querySelectorAll('.task').forEach(task => {
-    task.addEventListener('click', () => {
-      const filePath = task.dataset.file;
-      if (filePath) {
-        const link = document.createElement('a');
-        link.href = filePath;
-        link.download = filePath.split('/').pop();
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } else {
-        alert('The Solution PDF will be uploaded soon!');
-      }
-    });
-  });
-
-  // ✅ Add delete event listeners
   document.querySelectorAll('.task span[title="Delete"]').forEach(span => {
     span.onclick = async function () {
       const dayIdx = Number(span.getAttribute('data-day'));
       const taskIdx = Number(span.getAttribute('data-idx'));
       const task = tasks[dayIdx][taskIdx];
 
-      // Remove from DB
       if (task.id) {
         try {
           const res = await fetch(`https://task-backend-g375.onrender.com/task/${task.id}`, {
@@ -78,25 +56,21 @@ function renderWeek() {
         }
       }
 
-      // Remove from UI
       tasks[dayIdx].splice(taskIdx, 1);
       renderWeek();
     };
   });
 }
 
-// Show add task form
 showFormBtn.onclick = () => {
   addTaskForm.style.display = 'flex';
 };
 
-// Hide add task form
 closeFormBtn.onclick = () => {
   addTaskForm.style.display = 'none';
   addTaskForm.reset();
 };
 
-// Add new task
 addTaskForm.onsubmit = async function (e) {
   e.preventDefault();
   const dayIdx = Number(taskDay.value);
@@ -105,15 +79,13 @@ addTaskForm.onsubmit = async function (e) {
     time: taskTime.value
   };
 
-  // Add to UI
   tasks[dayIdx].push(taskObj);
   renderWeek();
   addTaskForm.style.display = 'none';
   addTaskForm.reset();
 
-  // Send to backend
   try {
-    const res = await fetch('	https://task-backend-g375.onrender.com/tasks', {
+    const res = await fetch('https://task-backend-g375.onrender.com/task', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ day: dayIdx, ...taskObj })
@@ -124,7 +96,7 @@ addTaskForm.onsubmit = async function (e) {
       console.error('Task not saved:', data.message);
       alert('Failed to save task in DB.');
     } else {
-      fetchTasksFromDB(); // Refresh tasks from DB (now includes id)
+      fetchTasksFromDB();
     }
   } catch (err) {
     console.error('Error:', err);
@@ -134,7 +106,7 @@ addTaskForm.onsubmit = async function (e) {
 
 async function fetchTasksFromDB() {
   try {
-    const res = await fetch('	https://task-backend-g375.onrender.com/task');
+    const res = await fetch('https://task-backend-g375.onrender.com/tasks');
     const data = await res.json();
     if (data.success) {
       for (let i = 0; i < 7; i++) tasks[i] = [];
@@ -142,7 +114,7 @@ async function fetchTasksFromDB() {
         tasks[task.day].push({
           name: task.name,
           time: task.time,
-          id: task._id // ✅ store Mongo _id for deletion
+          id: task._id
         });
       });
       renderWeek();
@@ -155,24 +127,8 @@ async function fetchTasksFromDB() {
   }
 }
 
-// Initial fetch
 fetchTasksFromDB();
 
-if ('serviceWorker' in navigator && 'PushManager' in window) {
-  navigator.serviceWorker.register('sw.js').then(async swReg => {
-    const subscription = await swReg.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: 'PUBLIC_KEY_IN_BASE64'
-    });
-
-    // Send to backend
-    await fetch('https://task-backend-g375.onrender.com/subscribe', {
-      method: 'POST',
-      body: JSON.stringify(subscription),
-      headers: { 'Content-Type': 'application/json' }
-    });
-  });
-}
 // Convert VAPID public key to proper format
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -181,7 +137,7 @@ function urlBase64ToUint8Array(base64String) {
   return new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
 }
 
-// Request permission and register service worker
+// Register service worker and handle push subscription
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   navigator.serviceWorker.register('sw.js').then(async swReg => {
     const permission = await Notification.requestPermission();
@@ -192,15 +148,13 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
 
     const subscription = await swReg.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array('YOUR_PUBLIC_VAPID_KEY')
+      applicationServerKey: urlBase64ToUint8Array('BJu9aeVYWucklGJlUktm2M0DXVbrA0v3hXa9sADMlMlDHqdmksiATiXFi3papNx4aD03NacbeiE9sqg6ibWraew')
     });
 
-    // Send subscription to backend
-    await fetch('	https://task-backend-g375.onrender.com/subscribe', {
+    await fetch('https://task-backend-g375.onrender.com/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(subscription)
     });
   });
 }
-
